@@ -325,6 +325,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   torqueAmount: 5.69
+  baseSpeed: 11
+  boostSpeed: 15
 --- !u!114 &134433920
 MonoBehaviour:
   m_ObjectHideFlags: 0
