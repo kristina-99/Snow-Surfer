@@ -86,4 +86,17 @@ public class PlayerController : MonoBehaviour
     {
         canControlPlayer = false;
     }
+
+    public void ActivatePowerup(PowerupSO powerup)
+    {
+        if (powerup.GetPowerupType() == "speed")
+        {
+            baseSpeed += powerup.GetValueChange();
+            boostSpeed += powerup.GetValueChange();
+        }
+        else if (powerup.GetPowerupType() == "torque")
+        { 
+            myRigidbody2D.AddTorque(powerup.GetValueChange());
+        }
+    }
 }
