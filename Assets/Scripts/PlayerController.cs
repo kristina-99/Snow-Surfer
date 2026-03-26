@@ -1,3 +1,4 @@
+using System.Data;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float torqueAmount = 1f;
     [SerializeField] float baseSpeed = 11f;
     [SerializeField] float boostSpeed = 16f;
+    [SerializeField] ParticleSystem powerupParticles;
 
     SurfaceEffector2D surfaceEffector2D;
     InputAction moveAction;
@@ -17,6 +19,7 @@ public class PlayerController : MonoBehaviour
     float previousRotation;
     float totalRotation;
     int flipCount;
+    int activePowerupCount;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -89,6 +92,9 @@ public class PlayerController : MonoBehaviour
 
     public void ActivatePowerup(PowerupSO powerup)
     {
+        powerupParticles.Play();
+        activePowerupCount++;
+
         if (powerup.GetPowerupType() == "speed")
         {
             baseSpeed += powerup.GetValueChange();
@@ -102,6 +108,12 @@ public class PlayerController : MonoBehaviour
 
     public void DeactivatePowerup(PowerupSO powerup)
     {
+        activePowerupCount--;
+        if (activePowerupCount == 0)
+        {
+            powerupParticles.Stop();
+        }
+
         if (powerup.GetPowerupType() == "speed")
         {
             baseSpeed -= powerup.GetValueChange();
